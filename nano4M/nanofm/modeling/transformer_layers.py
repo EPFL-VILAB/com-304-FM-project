@@ -102,7 +102,7 @@ class Attention(nn.Module):
 
         if mask is not None:
             mask = rearrange(mask, "b n m -> b 1 n m") # Unsqueeze for multi-head attention
-            attn = attn.masked_fill(mask, float("-inf"))
+            attn = attn.masked_fill(~mask, float("-inf"))
 
         attn = self.act(attn)
 
