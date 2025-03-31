@@ -14,7 +14,11 @@ Course materials for each part will be released in stages, see the schedule belo
 
 ### Instructions
 
-The instructions for each of these three parts are provided in the notebooks, which you can find under `./notebooks/`. They will introduce the problem statement to you, explain what parts in the codebase need to be completed, and you will use them to perform inference on the trained models. You will be asked to run the cells in those notebooks, provide answers to questions, etc. Each notebook will count towards 10% of your nano4M project grade, meaning that the remaining 70% will come from your extensions. The notebooks are to be completed and submitted as a group.
+The instructions for each of these three parts are provided in the notebooks, which you can find under ./notebooks/. They will introduce the problem statement to you, explain what parts in the codebase need to be completed, and you will use them to perform inference on the trained models. You will be asked to run the cells in those notebooks, provide answers to questions, etc.
+
+The total project grade will count 40% of your final grade and consists of the three notebooks, your extensions, as well as the demo, presentation and report of your extensions. The notebooks count 50% towards that (i.e. 20% of your final grade), while the extension demo, presentation and report count another 50% (i.e. also 20% of your final grade).
+
+The notebooks are to be completed and submitted individually. You may discuss with your group members, but are encouraged to try and solve the exercises on your own.
 
 ## **Important Dates**  
 
