@@ -1,0 +1,70 @@
+# Designed to be run on 1xV100-32GB GPUs
+
+run_name: auto # Auto-generate a run name
+output_dir: ./outputs/auto # Set to auto to use the run_name
+
+# Global variables used throughout the config
+global_vars:
+  batch_size: 256 # per GPU
+  max_seq_len: 50 # 1 label token + 7*7 patches
+
+# Training
+batch_size: ${global_vars.batch_size}
+total_tokens: 500 # in millions of tokens
+warmup_tokens: 50 # in millions of tokens
+num_tokens_per_sample: ${global_vars.max_seq_len} # Number of tokens per sample to count towards the total tokens seen
+lr: 0.0003 # Max learning rate
+min_lr: 0.000001 # Min learning rate after cosine decay
+weight_decay: 0.05 # AdamW weight decay
+clip_grad: 1.0 # Gradient clipping norm
+dtype: fp16 # Precision. Choose fp16 on V100s, bf16 on A100s or later. In case of instability, try fp32.
+
+# Eval
+eval_freq: 50 # in millions of tokens
+save_ckpt_freq: 100 # in millions of tokens
+
+# Logging
+log_wandb: True
+wandb_project: COM304_nanoMaskGIT # wandb project name
+wandb_entity: <YOUR_WANDB_ENTITY_NAME> # Set to your wandb username
+wandb_run_name: auto # Set to auto to use the run_name
+
+# Model config
+model_config:
+  _target_: nanofm.models.maskgit.MaskGIT
+  seq_read_key: input_ids # Key to read the input sequence from the batch
+  dim: 512 # Model dimension
+  depth: 8 # Number of Transformer layers
+  head_dim: 64 # Dim of each attention head
+  vocab_size: 26 # 10 for labels + 16 for patches
+  seq_len: ${global_vars.max_seq_len}
+
+# Train loader config
+train_loader_config:
+  _target_: nanofm.data.vision.tokenized_mnist.create_tokenized_mnist_dataloader
+  train: True
+  image_size: 14
+  patch_size: 2
+  add_sos_token: False
+  add_label_token: True # Prepend label token (and shift vocabulary by 10)
+  batch_size: ${global_vars.batch_size}
+  infinite: True
+  distributed: True
+  num_workers: 10
+  pin_memory: True
+  shuffle: True
+
+# Eval loader config
+eval_loader_config:
+  _target_: nanofm.data.vision.tokenized_mnist.create_tokenized_mnist_dataloader
+  train: False
+  image_size: 14
+  patch_size: 2
+  add_sos_token: False
+  add_label_token: True # Prepend label token (and shift vocabulary by 10)
+  batch_size: ${global_vars.batch_size}
+  infinite: False
+  distributed: True
+  num_workers: 10
+  pin_memory: True
+  shuffle: False
