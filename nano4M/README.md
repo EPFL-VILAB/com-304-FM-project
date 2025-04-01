@@ -14,9 +14,10 @@ Course materials for each part will be released in stages, see the schedule belo
 
 ### Instructions
 
-The instructions for each of these three parts are provided in the notebooks, which you can find under ./notebooks/. They will introduce the problem statement to you, explain what parts in the codebase need to be completed, and you will use them to perform inference on the trained models. You will be asked to run the cells in those notebooks, provide answers to questions, etc.
+The instructions for each of these three parts are provided in the notebooks, which you can find under `./notebooks/`. They will introduce the problem statement to you, explain what parts in the codebase need to be completed, and you will use them to perform inference on the trained models. You will be asked to run the cells in those notebooks, provide answers to questions, etc. 
 
-The total project grade will count 40% of your final grade and consists of the three notebooks, your extensions, as well as the demo, presentation and report of your extensions. The notebooks count 50% towards that (i.e. 20% of your final grade), while the extension demo, presentation and report count another 50% (i.e. also 20% of your final grade).
+The total project grade will count 40% of your final grade and consists of the three notebooks, your extensions, as well as the demo, presentation and report of your extensions.
+The notebooks count 50% towards that (i.e. 20% of your final grade), while the extension demo, presentation and report count another 50% (i.e. also 20% of your final grade).
 
 The notebooks are to be completed and submitted individually. You may discuss with your group members, but are encouraged to try and solve the exercises on your own.
 
@@ -24,19 +25,19 @@ The notebooks are to be completed and submitted individually. You may discuss wi
 
 Below is the completion and homework submission timeline for each part. Please refer to Moodle for further updates and instructions.  
 
-### **Part 1**  
+### **Part 1: nanoGPT**  
 - **Release:** Tue 25.3.2025  
 - **Due:** By 23:59 on Fri 4.4.2025  
 
-### **Part 2**  
+### **Part 2: nanoMaskGIT**  
 - **Release:** Tue 1.4.2025  
 - **Due:** By 23:59 on Fri 11.4.2025  
 
-### **Part 3**  
+### **Part 3: nano4M**  
 - **Release:** Tue 8.4.2025  
 - **Due:** By 23:59 on Fri 18.4.2025  
 
-### **Progress Report**  
+### **Progress Report (Updated Extension Proposal)**
 - **Due:** By 23:59 on Fri 18.4.2025  
 
 ## **Installation**  
@@ -56,16 +57,16 @@ bash setup_env.sh
 
 ## Getting Started
 
-In Part 1, we will implement the building blocks of autoregressive models and train them on language and image modeling tasks.
+We will implement the building blocks of autoregressive, masked, and multimodal models and train them on language and image modeling tasks.
 
 You will primarily run the following files:
-1. Jupyter notebook: `nano4M/notebooks/COM304_FM_part1_nanoGPT.ipynb` 
-   - Usage: Introduction of **Part 1** and Inference (post-training result generation and analysis).
+1. Jupyter notebooks: `nano4M/notebooks/` 
+   - Usage: Introduction of the week's tasks and inference (post-training result generation and analysis).
 2. Main training script: `run_training.py` 
-   - Usage: Train your models after implementing the building blocks (refer to the notebook for more details).
+   - Usage: Train your models after implementing the building blocks (refer to the notebooks for more details).
 
-### Jupyter notebook `notebooks/COM304_FM_part1_nanoGPT.ipynb`:
-To use the Jupyter notebook, activate the `nano4m` environment and run the notebook. Follow the same steps outlined in [4M_Tutorial Environment Setup](4M_Tutorial/Environment.md) to launch the notebook in a browser.
+### Jupyter notebooks `nano4M/notebooks/`:
+To use the Jupyter notebooks, activate the `nano4m` environment and run the notebooks. Follow the same steps outlined in [4M_Tutorial Environment Setup](4M_Tutorial/Environment.md) to launch the notebook in a browser.
 
 ### Main training script `run_training.py`:
 
@@ -118,6 +119,3 @@ Example Usage:
 ```bash
 sbatch submit_job.sh cfgs/nanoGPT/tinystories_d8w512.yaml abcdef1234567890 2
 ```
-
-
-

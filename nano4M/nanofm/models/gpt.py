@@ -136,6 +136,9 @@ class GPT(nn.Module):
 
         return x
 
+        # TODO: Return the logits
+        return ???
+
     def compute_ce_loss(self, logits: torch.Tensor, target_seq: torch.LongTensor, padding_idx: int = -100) -> torch.Tensor:
         """
         Compute the cross-entropy loss given logits and target labels, ignoring padding tokens.
@@ -159,7 +162,7 @@ class GPT(nn.Module):
         Args:
             data_dict: A dictionary containing the input sequence.
         Returns:
-            A dictionary containing the loss value.
+            The loss and a dictionary containing the perplexity metric.
         """
         seq = data_dict[self.seq_read_key] # Shape (B, L+1): e.g. [SOS], T_1, T_2, ..., T_L, [EOS], [PAD] ...
         input_seq = seq[:, :-1] # Shape (B, L): e.g. [SOS], T_1, T_2, ..., T_L, [EOS], [PAD] ... (with the last token dropped)
