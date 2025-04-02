@@ -113,31 +113,18 @@ class GPT(nn.Module):
         """
         B, L = x.size() # batch size and sequence length
 
-        # TODO: Embed the input tokens using the input embedding layer. Shape: [B, L, D]
         x = self.input_embedding(x)
         
-        # TODO: Add the positional embeddings to the tokens
-        # Hint: Make sure this works for sequences of different lengths
         x = x + self.positional_embedding[:L]
 
-        # TODO: Define the causal mask for the transformer trunk. 
-        # False = masked-out, True = not masked. Shape: [1, L, L]
-        # Hint: What shape should the mask have such that each token can attend to itself and
-        # all previous tokens, but not to any future tokens?
         causal_mask = torch.tril(torch.ones(L, L, dtype=torch.bool)).unsqueeze(0).to(self.device)
 
-        # TODO: Forward pass through Transformer trunk
-        # Hint: Make sure to pass the causal mask to the transformer trunk too
         x = self.trunk(x, causal_mask)
         
-        # TODO: Pass to the output normalization and output projection layer to compute the logits
         x = self.out_norm(x)
         x = self.to_logits(x)
 
         return x
-
-        # TODO: Return the logits
-        return ???
 
     def compute_ce_loss(self, logits: torch.Tensor, target_seq: torch.LongTensor, padding_idx: int = -100) -> torch.Tensor:
         """
@@ -150,8 +137,6 @@ class GPT(nn.Module):
         Returns:
              A scalar loss value.
         """
-        # TODO: Compute the cross-entropy loss
-        # Hint: Remember to ignore the padding token index in the loss calculation
         loss = F.cross_entropy(logits.transpose(1, 2), target_seq, ignore_index=padding_idx)
         return loss
 
