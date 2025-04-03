@@ -195,10 +195,10 @@ class GPT(nn.Module):
             # Keep only the last token's logits and sample the next token
             # Hint: Use the sample_tokens function from utils/sampling.py
             # Make sure to pass the temperature, top_k and top_p arguments
-            new_token, _ = sample_tokens(logits[-1], temperature=temp, top_k=top_k, top_p=top_p)
+            new_token, _ = sample_tokens(logits[:,-1], temperature=temp, top_k=top_k, top_p=top_p)
 
             # Concatenate the new token to the current_tokens sequence
-            current_tokens = torch.cat([current_tokens, new_token], dim=-1)
+            current_tokens = torch.cat([current_tokens, new_token.unsqueeze(0)], dim=-1) # Question: Why unsqueeze(0)?
 
             # Break if the end-of-sequence token is generated
             if eos_idx is not None and new_token.item() == eos_idx:
