@@ -97,7 +97,7 @@ class Attention(nn.Module):
         B, L, D = x.shape # Batch size, sequence length, and dimension
 
         q, k, v = torch.reshape(self.qkv(x), (B, L, self.num_heads, -1)).permute((0, 2, 1, 3)).chunk(3, dim=-1)
-
+        # TODO: do with rearrange
         attn = torch.matmul(q, k.transpose(-1, -2)) * self.scale
 
         if mask is not None:
