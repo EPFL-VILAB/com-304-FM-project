@@ -58,7 +58,7 @@ class GPT(nn.Module):
         self.max_seq_len = max_seq_len
         self.init_std = init_std
 
-        self.input_embedding = nn.Embedding(vocab_size, dim) # Question: Why not putting the padding_idx here?
+        self.input_embedding = nn.Embedding(vocab_size, dim)
         self.positional_embedding = nn.Parameter(torch.randn((max_seq_len, dim)))
         
         self.trunk = TransformerTrunk(dim, depth, head_dim, mlp_ratio, use_bias)
@@ -198,7 +198,7 @@ class GPT(nn.Module):
             new_token, _ = sample_tokens(logits[:,-1], temperature=temp, top_k=top_k, top_p=top_p)
 
             # Concatenate the new token to the current_tokens sequence
-            current_tokens = torch.cat([current_tokens, new_token.unsqueeze(0)], dim=-1) # Question: Why unsqueeze(0)?
+            current_tokens = torch.cat([current_tokens, new_token.unsqueeze(0)], dim=-1)
 
             # Break if the end-of-sequence token is generated
             if eos_idx is not None and new_token.item() == eos_idx:
