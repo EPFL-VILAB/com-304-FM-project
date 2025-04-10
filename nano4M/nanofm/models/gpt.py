@@ -64,7 +64,7 @@ class GPT(nn.Module):
         self.trunk = TransformerTrunk(dim, depth, head_dim, mlp_ratio, use_bias)
         
         self.out_norm = LayerNorm(dim)
-        self.to_logits = nn.Linear(dim, vocab_size)
+        self.to_logits = nn.Linear(dim, vocab_size, bias=False)
 
         self.initialize_weights() # Weight initialization
 

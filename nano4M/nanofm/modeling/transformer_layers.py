@@ -62,15 +62,15 @@ class Mlp(nn.Module):
         super().__init__()
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
-        self.fc1 = nn.Linear(in_features, hidden_features, bias=bias)
-        self.act = nn.GELU()
-        self.fc2 = nn.Linear(hidden_features, out_features, bias=bias)
+
+        self.ff = nn.Sequential(
+            nn.Linear(in_features, hidden_features, bias=bias),
+            nn.GELU(),
+            nn.Linear(hidden_features, out_features, bias=bias),
+        )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        x = self.fc1(x)
-        x = self.act(x)
-        x = self.fc2(x)
-        return x
+        return self.ff(x)
 
 
 class Attention(nn.Module):
