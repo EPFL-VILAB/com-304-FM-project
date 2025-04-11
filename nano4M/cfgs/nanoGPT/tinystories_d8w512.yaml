@@ -26,7 +26,7 @@ save_ckpt_freq: 200 # in millions of tokens
 # Logging
 log_wandb: True
 wandb_project: COM304_nanoGPT # wandb project name
-wandb_entity: <YOUR_WANDB_ENTITY_NAME> # Set to your wandb username
+wandb_entity: adrien-bousquie-epfl # Set to your wandb username
 wandb_run_name: auto # Set to auto to use the run_name
 
 # Model config
