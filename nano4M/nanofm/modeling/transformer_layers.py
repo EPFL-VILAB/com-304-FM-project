@@ -96,7 +96,11 @@ class Attention(nn.Module):
     def forward(self, x: torch.Tensor, mask: Optional[torch.Tensor] = None) -> torch.Tensor:
         B, L, D = x.shape # Batch size, sequence length, and dimension
 
-        q, k, v = torch.reshape(self.qkv(x), (B, L, self.num_heads, -1)).permute((0, 2, 1, 3)).chunk(3, dim=-1)
+        q, k, v = torch.chunk(self.qkv(x), chunks=3, dim=-1)
+        q = rearrange(q, "b l (h d) -> b h l d", d=D)
+        k = rearrange(k, "b l (h d) -> b h l d", d=D)
+        v = rearrange(v, "b l (h d) -> b h l d", d=D)
+
         attn = torch.matmul(q, k.transpose(-1, -2)) * self.scale
 
         if mask is not None:
@@ -105,11 +109,12 @@ class Attention(nn.Module):
 
         attn = self.act(attn)
 
-        x = torch.matmul(attn, v).permute((0, 2, 1, 3)).reshape(B, L, D)
+        res = torch.matmul(attn, v)
+        res = rearrange(res, "b h l d -> b l (h d)")
 
         # Output projection
-        x = self.attn_out_proj(x)
-        return x
+        res = self.attn_out_proj(res)
+        return res
 
 
 class Block(nn.Module):
